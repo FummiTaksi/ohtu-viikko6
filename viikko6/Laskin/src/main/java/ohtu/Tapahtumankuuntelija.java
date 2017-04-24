@@ -32,12 +32,11 @@ public class Tapahtumankuuntelija implements ActionListener {
         Komento komento = tehdas.haeKomento(painettu.getText());
 
         if (komento != null) {
-          if (syotekentta.getText().isEmpty()) {
-            laskunTulos = komento.suorita(0);
+          int arvo = 0;
+          if (!syotekentta.getText().isEmpty()) {
+            arvo = Integer.parseInt(syotekentta.getText());
           }
-          else {
-            laskunTulos = komento.suorita(Integer.parseInt(syotekentta.getText()));
-          }
+          laskunTulos = komento.suorita(arvo);
           edellinen = komento;
         }
         else {
