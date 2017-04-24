@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JTextField;
- 
+
 public class Tapahtumankuuntelija implements ActionListener {
     private JButton plus;
     private JButton miinus;
@@ -12,8 +12,8 @@ public class Tapahtumankuuntelija implements ActionListener {
     private JButton undo;
     private JTextField tuloskentta;
     private JTextField syotekentta;
-    private Sovelluslogiikka sovellus;
- 
+    private Komento edellinen;
+
     public Tapahtumankuuntelija(JButton plus, JButton miinus, JButton nollaa, JButton undo, JTextField tuloskentta, JTextField syotekentta) {
         this.plus = plus;
         this.miinus = miinus;
@@ -21,38 +21,34 @@ public class Tapahtumankuuntelija implements ActionListener {
         this.undo = undo;
         this.tuloskentta = tuloskentta;
         this.syotekentta = syotekentta;
-        this.sovellus = new Sovelluslogiikka();
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
-        int arvo = 0;
- 
-        try {
-            arvo = Integer.parseInt(syotekentta.getText());
-        } catch (Exception e) {
+
+        Komentotehdas tehdas = new Komentotehdas(Integer.parseInt(tuloskentta.getText()));
+        int laskunTulos = Integer.parseInt(tuloskentta.getText());
+        JButton painettu = (JButton) ae.getSource();
+        Komento komento = tehdas.haeKomento(painettu.getText());
+
+        if (komento != null) {
+          if (syotekentta.getText().isEmpty()) {
+            laskunTulos = komento.suorita(0);
+          }
+          else {
+            laskunTulos = komento.suorita(Integer.parseInt(syotekentta.getText()));
+          }
+          edellinen = komento;
         }
- 
-        if (ae.getSource() == plus) {
-            sovellus.plus(arvo);
-        } else if (ae.getSource() == miinus) {
-            sovellus.miinus(arvo);
-        } else if (ae.getSource() == nollaa) {
-            sovellus.nollaa();
-        } else {
-            System.out.println("undo pressed");
+        else {
+          laskunTulos = edellinen.undo();
+          edellinen = null;
         }
-        
-        int laskunTulos = sovellus.tulos();
-         
+
         syotekentta.setText("");
         tuloskentta.setText("" + laskunTulos);
-        if ( laskunTulos==0) {
-            nollaa.setEnabled(false);
-        } else {
-            nollaa.setEnabled(true);
-        }
-        undo.setEnabled(true);
+
+        nollaa.setEnabled(laskunTulos !=0);
+        undo.setEnabled(edellinen!=null);
     }
- 
 }
