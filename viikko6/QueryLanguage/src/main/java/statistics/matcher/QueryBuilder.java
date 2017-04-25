@@ -3,10 +3,9 @@ package statistics.matcher;
 import java.util.*;
 
 public class QueryBuilder {
-  private Matcher matcher;
   private ArrayList<Matcher> matchers;
   public QueryBuilder() {
-    this.matchers = new ArrayList();
+    alustaMatchers();
   }
 
   public void alustaMatchers() {
@@ -41,7 +40,7 @@ public class QueryBuilder {
 
   public Matcher build() {
     ArrayList<Matcher> matcherit = matchers;
-    alustaMatchers(); //ilman tätä riviä koodi ei toimisi jos on if ehto!!
+    alustaMatchers(); //ilman tätä riviä koodi ei toimisi jos on oneOf !?
     return new And(getMatchers(matcherit));
   }
 }
