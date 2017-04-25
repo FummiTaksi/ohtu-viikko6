@@ -40,7 +40,7 @@ public class QueryBuilder {
 
   public Matcher build() {
     ArrayList<Matcher> matcherit = matchers;
-    alustaMatchers(); //ilman tätä riviä koodi ei toimisi jos on oneOf !?
+    alustaMatchers(); // aina kun buildataan niin resetetaan arraylist.
     return new And(getMatchers(matcherit));
   }
 }

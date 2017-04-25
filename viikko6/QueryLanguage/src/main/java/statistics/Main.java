@@ -17,7 +17,7 @@ public class Main {
 
                           query.playsIn("EDM")
                                .hasAtLeast(50, "points").build()
-                         ).build();
+                         ).hasFewerThan(70,"points").build();
 
 
                          for (Player player : stats.matches(m)) {
