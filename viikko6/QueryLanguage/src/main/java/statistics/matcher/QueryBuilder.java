@@ -41,7 +41,7 @@ public class QueryBuilder {
 
   public Matcher build() {
     ArrayList<Matcher> matcherit = matchers;
-    alustaMatchers();
+    alustaMatchers(); //ilman tätä riviä koodi ei toimisi jos on if ehto!!
     return new And(getMatchers(matcherit));
   }
 }
