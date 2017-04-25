@@ -10,20 +10,14 @@ public class Main {
 
                           QueryBuilder query = new QueryBuilder();
 
-                          //Matcher m = new Or(new PlaysIn("PHI"), new PlaysIn("EDM"));
-                          Matcher m = query.oneOf(query.playsIn("PHI").build(), query.playsIn("EDM").build()).build();
+                          Matcher m = query.oneOf(
+                          query.playsIn("PHI")
+                               .hasAtLeast(10, "goals")
+                               .hasFewerThan(30, "assists").build(),
 
-                          //Matcher m = new Or(query.playsIn("PHI")
-                               //.hasAtLeast(10, "goals")
-                               //.build(),  query.playsIn("EDM")
-                               //.hasAtLeast(50, "points").build());
-                          //Matcher m = query.oneOf(
-                          //query.playsIn("PHI")
-                               //.hasAtLeast(10, "goals")
-                               //.hasFewerThan(15, "assists").build(),
-
-                               //query.playsIn("EDM")
-                             //.hasAtLeast(50, "points").build());
+                          query.playsIn("EDM")
+                               .hasAtLeast(50, "points").build()
+                         ).build();
 
 
                          for (Player player : stats.matches(m)) {

@@ -9,6 +9,10 @@ public class QueryBuilder {
     this.matchers = new ArrayList();
   }
 
+  public void alustaMatchers() {
+    this.matchers = new ArrayList();
+  }
+
   public QueryBuilder playsIn(String team) {
     matchers.add(new PlaysIn(team));
     return this;
@@ -36,6 +40,8 @@ public class QueryBuilder {
   }
 
   public Matcher build() {
-    return new Or(getMatchers(matchers));
+    ArrayList<Matcher> matcherit = matchers;
+    alustaMatchers();
+    return new And(getMatchers(matcherit));
   }
 }
