@@ -12,8 +12,10 @@ public class Or implements Matcher {
 
     @Override
     public boolean matches(Player p) {
+      //System.out.println("matchereitä on " + matchers.length);
         for (Matcher matcher : matchers) {
             if (matcher.matches(p)) {
+                //System.out.println("Toimii or:n matcherissa: " + p);
                 return true;
             }
         }

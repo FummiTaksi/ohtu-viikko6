@@ -10,6 +10,7 @@ public class And implements Matcher {
         this.matchers = matchers;
     }
 
+
     @Override
     public boolean matches(Player p) {
         for (Matcher matcher : matchers) {
@@ -17,7 +18,6 @@ public class And implements Matcher {
                 return false;
             }
         }
-
         return true;
     }
 }
